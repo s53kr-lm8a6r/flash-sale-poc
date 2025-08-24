@@ -1,0 +1,51 @@
+# Version control
+.git
+.git/**
+
+# Dependencies and caches (keep lockfiles for build caching)
+**/node_modules
+**/.pnpm-store
+**/.npm
+**/.yarn
+**/.cache
+**/.turbo
+**/.swc
+**/.vite
+**/.parcel-cache
+
+# Build outputs
+**/dist
+**/build
+**/coverage
+
+# Next.js / static outputs
+**/.next
+**/.next/cache
+**/out
+**/.vercel
+
+# Logs and temp files
+**/logs
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.tmp
+**/tmp
+
+# Editors / OS
+**/.DS_Store
+**/Thumbs.db
+**/.idea
+**/.vscode
+
+# Environment files (keep samples)
+**/.env
+**/.env.*
+!**/.env.example
+!**/sample.env
+
+# Local compose and tooling artifacts
+.compose
+.compose/**

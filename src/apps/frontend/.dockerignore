@@ -1,0 +1,22 @@
+# Ignore local-only files and outputs for Docker build context
+node_modules
+.next
+out
+coverage
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Env files should never be sent to the build context
+.env
+.env.*
+
+# Editor/IDE and build caches
+.vscode
+.idea
+tsconfig.tsbuildinfo
+
+# Compose and local volumes
+.compose
