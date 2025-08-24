@@ -1,0 +1,32 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/react": "catalog:frontend",
+    "@emotion/styled": "catalog:frontend",
+    "@mui/icons-material": "catalog:frontend",
+    "@mui/material": "catalog:frontend",
+    "@mui/material-nextjs": "catalog:frontend",
+    "@mantine/hooks": "catalog:frontend",
+    "common-ui": "workspace:*",
+    "common": "workspace:*",
+    "axios": "catalog:common",
+    "luxon": "catalog:common",
+    "next": "catalog:frontend",
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@types/luxon": "catalog:frontend",
+    "@types/node": "catalog:frontend",
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "typescript": "catalog:frontend"
+  }
+}

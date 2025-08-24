@@ -1,0 +1,64 @@
+{
+  "name": "payment",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "build": "nest build",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@nestjs/common": "catalog:backend",
+    "@nestjs/core": "catalog:backend",
+    "@nestjs/platform-express": "catalog:backend",
+    "common": "workspace:*",
+    "luxon": "catalog:common",
+    "reflect-metadata": "catalog:backend",
+    "rxjs": "catalog:backend"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "catalog:backend",
+    "@nestjs/schematics": "catalog:backend",
+    "@nestjs/testing": "catalog:backend",
+    "@types/express": "catalog:backend",
+    "@types/jest": "catalog:backend",
+    "@types/luxon": "catalog:backend",
+    "@types/node": "catalog:backend",
+    "@types/supertest": "catalog:backend",
+    "jest": "catalog:backend",
+    "source-map-support": "catalog:backend",
+    "supertest": "catalog:backend",
+    "ts-jest": "catalog:backend",
+    "ts-loader": "catalog:backend",
+    "ts-node": "catalog:backend",
+    "tsconfig-paths": "catalog:backend",
+    "typescript": "catalog:backend"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

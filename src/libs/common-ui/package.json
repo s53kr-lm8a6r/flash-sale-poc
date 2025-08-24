@@ -1,0 +1,30 @@
+{
+  "name": "common-ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist || rd /s /q dist"
+  },
+  "peerDependencies": {
+    "react": "catalog:frontend",
+    "react-dom": "catalog:frontend"
+  },
+  "dependencies": {
+    "@emotion/react": "catalog:frontend",
+    "@emotion/styled": "catalog:frontend",
+    "@mui/material": "catalog:frontend",
+    "@mantine/hooks": "catalog:frontend"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:frontend",
+    "@types/react-dom": "catalog:frontend",
+    "typescript": "catalog:frontend"
+  }
+}
