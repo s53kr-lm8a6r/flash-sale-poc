@@ -49,3 +49,5 @@
 # Local compose and tooling artifacts
 .compose
 .compose/**
+
+**/.pnpm-store

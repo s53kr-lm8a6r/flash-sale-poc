@@ -40,3 +40,11 @@ Thumbs.db
 # Caches/temp
 .tmp/
 .cache/
+
+# Local Compose (ignore all, but keep any kong.yml inside)
+/.compose/**
+!/.compose/
+!/.compose/**/
+!/.compose/volumes/kong/kong.yml
+
+**/.pnpm-store

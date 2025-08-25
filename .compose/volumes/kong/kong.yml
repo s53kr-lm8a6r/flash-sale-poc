@@ -1,0 +1,24 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+  - name: frontend
+    url: http://flsl-frontend:3000
+    routes:
+      - name: frontend-route
+        paths:
+          - /fe
+
+  - name: backend
+    url: http://flsl-backend:3000
+    routes:
+      - name: backend-route
+        paths:
+          - /be
+
+  - name: payment
+    url: http://flsl-payment:3000
+    routes:
+      - name: payment-route
+        paths:
+          - /payment
