@@ -50,4 +50,6 @@
 .compose
 .compose/**
 
+**/next-env.d.ts
+
 **/.pnpm-store

@@ -1,50 +1,57 @@
-# Node
-node_modules/
-dist/
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+# Version control
+.git
+.git/**
 
-# Lockfiles (keep pnpm lockfile committed)
-package-lock.json
-yarn.lock
-
-# TypeScript
-*.tsbuildinfo
+# Dependencies and caches (keep lockfiles for build caching)
+**/node_modules
+**/.pnpm-store
+**/.npm
+**/.yarn
+**/.cache
+**/.turbo
+**/.swc
+**/.vite
+**/.parcel-cache
 
 # Build outputs
-/dist/
-/build/
-/coverage/
+**/dist
+**/build
+**/coverage
 
-# Next.js
-.next/
-out/
-.vercel/
+# Next.js / static outputs
+**/.next
+**/.next/cache
+**/out
+**/.vercel
+
+# Logs and temp files
+**/logs
+**/*.log
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/.tmp
+**/tmp
+
+# Editors / OS
+**/.DS_Store
+**/Thumbs.db
+**/.idea
+**/.vscode
 
 # Environment files (keep samples)
-.env
-.env.*
-!.env.example
-!sample.env
-
-# Editors/OS
-.DS_Store
-Thumbs.db
-.idea/
-.vscode/
-
-# Caches/temp
-.tmp/
-.cache/
+**/.env
+**/.env.*
+!**/.env.example
+!**/sample.env
 
 # Local Compose (ignore all, but keep any kong.yml inside)
 /.compose/**
 !/.compose/
 !/.compose/**/
 !/.compose/volumes/kong/kong.yml
+
+**/next-env.d.ts
 
 **/.pnpm-store
