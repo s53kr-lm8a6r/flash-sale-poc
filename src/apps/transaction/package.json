@@ -1,5 +1,5 @@
 {
-  "name": "payment",
+  "name": "transaction",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -22,8 +22,10 @@
     "@nestjs/core": "catalog:backend",
     "@nestjs/platform-express": "catalog:backend",
     "@nestjs/config": "catalog:backend",
-    "common": "workspace:*",
     "axios": "catalog:common",
+    "kafkajs": "catalog:common",
+    "bson": "catalog:common",
+    "common": "workspace:*",
     "luxon": "catalog:common",
     "reflect-metadata": "catalog:backend",
     "rxjs": "catalog:backend"

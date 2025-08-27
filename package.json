@@ -7,6 +7,11 @@
   "scripts": {
     "lint": "biome check",
     "format": "biome format --write",
+    "test:load": "k6 run src/tests/load-tests/k6-buy-pay.js",
+    "test:load:small": "k6 run -e SCENARIO=small src/tests/load-tests/k6-buy-pay.js",
+    "test:load:medium": "k6 run -e SCENARIO=medium src/tests/load-tests/k6-buy-pay.js",
+    "test:load:large": "k6 run -e SCENARIO=large src/tests/load-tests/k6-buy-pay.js",
+    "test:load:xlarge": "k6 run -e SCENARIO=xlarge src/tests/load-tests/k6-buy-pay.js",
     "build:apps": "pnpm --filter backend --filter frontend --filter payment build",
     "build:libs": "pnpm --filter common --filter common-ui build"
   },

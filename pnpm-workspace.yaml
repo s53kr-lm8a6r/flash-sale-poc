@@ -13,6 +13,7 @@ catalogs:
     axios: ^1.11.0
     luxon: ^3.7.1
     bson: ^6.0.0
+    kafkajs: ^2.2.4
     uuid: ^9.0.1
     typescript: ^5
     rimraf: ^5.0.0
@@ -22,6 +23,10 @@ catalogs:
     '@nestjs/common': ^11.0.1
     '@nestjs/core': ^11.0.1
     '@nestjs/platform-express': ^11.0.1
+    '@nestjs/websockets': ^11.0.1
+    '@nestjs/platform-socket.io': ^11.0.1
+    socket.io: ^4.7.5
+    '@nestjs/config': ^4.0.0
     '@nestjs/schematics': ^11.0.0
     '@nestjs/testing': ^11.0.1
     '@types/express': ^5.0.0
@@ -46,6 +51,7 @@ catalogs:
     '@mui/material': ^7.3.1
     '@mui/material-nextjs': ^7.3.0
     '@mantine/hooks': ^7.15.3
+    'socket.io-client': ^4.7.5
     next: 15.5.0
     react: 19.1.0
     react-dom: 19.1.0

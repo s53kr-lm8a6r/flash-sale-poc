@@ -16,6 +16,7 @@
     "@mantine/hooks": "catalog:frontend",
     "common-ui": "workspace:*",
     "common": "workspace:*",
+    "socket.io-client": "catalog:frontend",
     "axios": "catalog:common",
     "luxon": "catalog:common",
     "next": "catalog:frontend",
