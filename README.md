@@ -90,7 +90,7 @@ Backend behavior
 
 ## Behavior Notes
 
-- IDs are MongoDB ObjectId hex strings
+- IDs are MongoDB ObjectId hex strings, to ensure time-based ascending order
 - Transaction initializes by syncing sale and buyers from Backend
 - Duplicate buyer names per sale are rejected
 - When `productQty <= 0`:
@@ -105,9 +105,18 @@ Scripts: see `src/tests/load-tests/k6-buy-pay.js`.
 ```
 pnpm test:load                   # all scenarios
 pnpm test:load:small|medium|large|xlarge
-
-# optional overrides
-TRANSACTION_URL=http://localhost:3099 PAYMENT_URL=http://localhost:3100 pnpm test:load:medium
 ```
 
 Note: In `payment` state, ~85% of virtual buyers proceed to `/pay`.
+
+## Unit Testing
+
+Jest unit tests are available for Backend and Transaction services.
+
+```
+# Backend tests
+pnpm --filter backend test
+
+# Transaction tests
+pnpm --filter transaction test
+```
