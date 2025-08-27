@@ -1,56 +1,113 @@
 # Flash Sale POC
 
-this demonstrate flash sale system
+Minimal flash-sale system demonstrating real-time updates, queueing, and inter-service messaging.
 
 ## Architecture
 
 ![Architecture](./.doc/res/arch.png)
 
-current demonstration are using in-memory db, and single-instance transaction handler for easier test
+- In-memory storage for demo purposes
+- Single-instance Transaction service (per sale) for easy testing
 
-### Front End
+## Services
 
-front-end for ui, with realtime data update using ws
+- Frontend (Next.js): UI with live updates over websockets
+- Backend (NestJS): REST API, Kafka consumer, and Socket.IO broadcaster
+- Transaction (NestJS): Handles buy/payment queues and emits Kafka events
+- Payment (NestJS, dummy): Accepts payments and calls back Transaction
 
-### Back End
+## Environment
 
-main back-end service use ws to update info to FE, and consumes from kafka to update transaction
+Each app provides a sample env file under `src/apps/<app>/sample.env`.
+- Configure Kafka (`KAFKA_BROKERS`, `KAFKA_TOPIC`) and ports as needed
+- Frontend expects `NEXT_PUBLIC_*` URLs for apps and websocket
 
-### Transaction
 
-simulates single-instance ephemeral transaction handler, created once per sale and handles all transaction related requests to prevent back-end to be overwhelmed. updates transaction status via kafka.
+## Run (Development)
 
-in the real case, this service is managed by kubernetes and the backend to start and shutdown
-
-this service will always sync to the backend to receive current data (according to the sale it handles)
-source of truth are always the back end
-
-### Payment (Dummy)
-
-simulates payment gateway
-
-additional implementation is needed to handle a throttled payment gw, for example using a time-based batching payment process in transaction
-current not implemented
-
-## Configuration
-
-view from sample.env
-
-run your own kafka instance
-
-## Running
-
+```
 pnpm --filter frontend dev
 pnpm --filter backend start:dev
 pnpm --filter transaction start:dev
 pnpm --filter payment start:dev
+```
 
-## Running Tests
+Ensure Kafka is running and reachable by Backend and Transaction.
 
-load test
-pnpm test:load
-pnpm test:load:[scenario]
+## APIs (summary)
 
-in large, error starting to show up with ~50% failure rate
-which means a single sale should have multiple synchronized transaction handler to handle large surge
-(implemented next time, since i don't have load balancer locally)
+- Backend
+  - GET `/sales` → list sales
+  - GET `/sales/:id` → sale detail
+  - GET `/sales/:id/buyers` → buyers for sale
+  - POST `/sales/:id/eligible` → 200 if buyer name eligible, 400 if exists
+
+- Transaction
+  - POST `/buy` `{ buyerName }` → `{ transactionId, state: "payment"|"waiting" }`
+    - Rejects (400) if sale not active, sold out, or buyer already joined
+  - POST `/paid` `{ transactionId }` → `{ success: true }` only if transaction is in `payment` queue; 400 otherwise
+
+- Payment (dummy)
+  - POST `/pay` `{ transactionId, quantity }` → calls back Transaction `/paid`
+
+## Websocket Events (from Backend)
+
+- `sale_update` `{ saleId, remainingQty, buyerName }`
+- `sale_started` `{ saleId, startsAt }`
+- `sale_ended` `{ saleId, endsAt }`
+- `sale_event` `{ saleId, event: "start"|"end", at }`
+- `queue_switch` `{ transactionId, buyerName, saleId }`
+
+## Kafka Events
+
+- Topic: `transactions` (configurable via `KAFKA_TOPIC`)
+- Producer: Transaction service
+- Consumer: Backend service
+
+Payloads
+
+```json
+// paid
+{
+  "transactionId": "<ObjectId>",
+  "buyerName": "<string>",
+  "saleId": "<ObjectId>",
+  "type": "paid"
+}
+
+// switch (waiting -> payment)
+{
+  "transactionId": "<ObjectId>",
+  "buyerName": "<string>",
+  "saleId": "<ObjectId>",
+  "type": "switch"
+}
+```
+
+Backend behavior
+- `paid`: adds buyer to Backend buyers, decrements sale qty, emits `sale_update`
+- `switch`: emits `queue_switch`
+
+## Behavior Notes
+
+- IDs are MongoDB ObjectId hex strings
+- Transaction initializes by syncing sale and buyers from Backend
+- Duplicate buyer names per sale are rejected
+- When `productQty <= 0`:
+  - New `/buy` requests respond 400 (sold out)
+  - Waiting queue is cleared
+- Stale payments (> 1 minute) are cleaned up and backfilled from waiting
+
+## Load Testing (k6)
+
+Scripts: see `src/tests/load-tests/k6-buy-pay.js`.
+
+```
+pnpm test:load                   # all scenarios
+pnpm test:load:small|medium|large|xlarge
+
+# optional overrides
+TRANSACTION_URL=http://localhost:3099 PAYMENT_URL=http://localhost:3100 pnpm test:load:medium
+```
+
+Note: In `payment` state, ~85% of virtual buyers proceed to `/pay`.
