@@ -33,7 +33,7 @@ export class SalesController {
   @HttpCode(200)
   checkEligible(
     @Param("id") id: string,
-    @Body("buyerName") buyerName: string
+    @Body("buyerName") buyerName: string,
   ): void {
     const qty = this.salesService.saleQty(id);
     if (qty <= 0) {
@@ -42,7 +42,7 @@ export class SalesController {
     const exists = this.salesService.buyerExistsByName(id, buyerName);
     if (exists) {
       throw new BadRequestException(
-        "You have already participated in this sale"
+        "You have already participated in this sale",
       );
     }
   }

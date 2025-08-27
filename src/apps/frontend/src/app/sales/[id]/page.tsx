@@ -24,7 +24,7 @@ export default function SaleDetailPage() {
   const [snackMsg, setSnackMsg] = useState("");
   const buyerName =
     typeof window !== "undefined"
-      ? localStorage.getItem("buyerName") ?? ""
+      ? (localStorage.getItem("buyerName") ?? "")
       : "";
 
   useEffect(() => {
